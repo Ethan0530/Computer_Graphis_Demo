@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <graphics.h>
 #include <cmath>
+
 //画8个相对称的点,xc,yc为圆心(圆的八方向对称性)
 void CirclePoints(int xc,int yc,int x,int y,int Color){
 	putpixel(xc + x,yc + y,Color);
