@@ -11,11 +11,12 @@ typedef struct Edge{
     struct Edge* next;
 }Edge;
 
-//多边形结构体
+//多边形每条边
 typedef struct{
     int x1,y1,x2,y2;
 }PolygonEdge;
 
+//多边形结构体
 typedef struct{
     int line_nums;
     PolygonEdge polygonEdge[MAX_SIZE];
