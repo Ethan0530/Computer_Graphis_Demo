@@ -23,7 +23,15 @@ typedef struct{
 }Polygon;
 
 void polyfill(Polygon polygon,int Color){
+    //扫描多边形各条线，初始化新边表
+    for(int i = 0;i < polygon.line_nums;i++){
+        //初始化新边表头指针NET[i]
+        //把ymin = i的边放进新编表NET[i]
+    }
+    //y = 最低扫描线号
+    //初始化活性边表AET为空
 
+    //活性边表增量更新
 }
 
 int main(){
