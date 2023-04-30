@@ -31,6 +31,9 @@ void polyfill(Polygon polygon,int Color){
     //y = 最低扫描线号
     //初始化活性边表AET为空
 
+    for(int i = 0;;i++){
+
+    }
     //活性边表增量更新
 }
 
