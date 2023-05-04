@@ -72,7 +72,7 @@ void polyfill(Polygon polygon,int Color){
         if(temp > ymax) ymax = temp;
     }
     //拿到了ymax和yminx才能建立新边表NET
-    AET **NET;
+    AET **NET = new AET*[ymax - ymin + 1];
     for(int i = 0;i < ymax - ymin + 1;i++){
         NET[i] = NULL;
     }
@@ -104,7 +104,49 @@ void polyfill(Polygon polygon,int Color){
             }
         }
     }
-    
+    //扫描填充，增量更新
+    for(int i = ymin;i <= ymax;i++){
+        AET* curr = NET[i - ymin];
+        AET* prev = NULL;
+        while(curr != NULL){
+            if(curr->ymax == i){//删除ymax = i的边
+                if(prev != NULL){
+                    prev->next = curr->next;
+                }else{
+                    NET[i - ymin] = curr->next;
+                }
+                curr = curr->next;
+                continue;
+            }
+            prev = curr;
+            curr->x += curr->dx;//更新dx值
+            curr = curr->next;
+        }
+        //初始化活性边表
+        AET* active = NET[i - ymin];
+        //按x递增顺序排列
+        while(active != NULL && active->next != NULL){
+            if(active->x > active->next->x){
+                std::swap(active->x, active->next->x);
+            }
+            active = active->next;
+        }
+        for(AET* p = NET[i - ymin]; p != NULL && p->next != NULL; p = p->next){
+            int x_start = (int)p->x + 0.5f;
+            int x_end = (int)p->next->x + 0.5f;
+            // draw_horizontal_line(x_start, x_end, i, Color);
+        }
+    }
+    //释放内存
+    for(int i = 0; i < ymax - ymin + 1; i++){
+        AET* curr = NET[i];
+        while(curr != NULL){
+            AET* temp = curr;
+            curr = curr->next;
+            delete temp;
+        }
+    }
+    delete[] NET;
 }
 
 //边表示法的多边形填充
