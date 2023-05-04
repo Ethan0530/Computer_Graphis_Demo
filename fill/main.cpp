@@ -106,6 +106,15 @@ void polyfill(Polygon polygon,int Color){
     }
     //扫描填充，增量更新
     for(int i = ymin;i <= ymax;i++){
+        //初始化活性边表
+        AET* active = NET[i - ymin];
+        //按x递增顺序排列
+        while(active != NULL && active->next != NULL){
+            if(active->x > active->next->x){
+                std::swap(active->x, active->next->x);
+            }
+            active = active->next;
+        }
         AET* curr = NET[i - ymin];
         AET* prev = NULL;
         while(curr != NULL){
@@ -122,19 +131,12 @@ void polyfill(Polygon polygon,int Color){
             curr->x += curr->dx;//更新dx值
             curr = curr->next;
         }
-        //初始化活性边表
-        AET* active = NET[i - ymin];
-        //按x递增顺序排列
+        //按x递增顺序重新排列
         while(active != NULL && active->next != NULL){
             if(active->x > active->next->x){
                 std::swap(active->x, active->next->x);
             }
             active = active->next;
-        }
-        for(AET* p = NET[i - ymin]; p != NULL && p->next != NULL; p = p->next){
-            int x_start = (int)p->x + 0.5f;
-            int x_end = (int)p->next->x + 0.5f;
-            // draw_horizontal_line(x_start, x_end, i, Color);
         }
     }
     //释放内存
