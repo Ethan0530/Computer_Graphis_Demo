@@ -143,13 +143,13 @@ void polyfill(Polygon_Point polygon,int Color){
             if(prev == NULL){
                 node->next = curr;
                 NET[index] = node;
-            } else {
+            }else{
                 prev->next = node;
                 node->next = curr;
             }
         }
     }
-    //初始化活性边表
+    //初始化活性边表，增加一个空的头结点
     AET header = {
         .ymax = -1,
         .x = -1,
@@ -159,7 +159,27 @@ void polyfill(Polygon_Point polygon,int Color){
     //配对交点，扫描填色，增量更新
     for(int i = ymin;i <= ymax;i++){
         AET *node = NET[i - ymin];
-        header.next = node;
+        while(node != NULL){//对活性边表进行插入排序
+            if(header.next == NULL){
+                header.next = node;
+                break;
+            }else{
+                AET *curr = header.next;
+                AET *prev = NULL;
+                while(curr != NULL && curr->x < node->x){
+                    prev = curr;
+                    curr = curr->next;
+                }
+                AET *temp = node->next;
+                if(prev == NULL){
+                    header.next = node;
+                }else{
+                    prev->next = node;
+                }
+                node = node->next;
+            }
+        }
+        
         
     }
 }
