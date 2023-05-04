@@ -16,24 +16,24 @@
 */
 
 //活性边表(AET)(针对一条固定的扫描线来说)
-typedef struct Edge{
+typedef struct AET{
     float ymax;//与该边所交的的最高扫描线的Y值(从ymin到ymax依次扫描填充)
     float x;//当前边与扫描线的交点的x值
     float dx;//边斜率的倒数 dx = 1/k(当前扫描线到下一条扫描线间x的增量)
-    struct Edge* next;
-}Edge;
+    struct AET* next;
+}AET;
 
 //新边表(为了方便活性边表的建立与更新)(用来存放多边形边的信息)
 typedef struct NET{
-
+    int line_num;
 }NET;
 
 //多边形每条边
 typedef struct{
     int x1,y1,x2,y2;
-}PolygonEdge;
+}Edge;
 
-//点集
+//多边形每个顶点(必须是封闭图形)
 typedef struct{
     int x,y;
 }Point;
@@ -47,10 +47,7 @@ typedef struct{
 //多边形结构体(边表示)
 typedef struct{
     int line_num;
-    int *x1;
-    int *y1;
-    int *x2;
-    int *y2;
+    const Edge *edges;
 }Polygon_Edge;
 
 //顶点表示法的多边形填充
