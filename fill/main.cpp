@@ -23,10 +23,7 @@ typedef struct AET{
     struct AET* next;
 }AET;
 
-//新边表(为了方便活性边表的建立与更新)(用来存放多边形边的信息)
-typedef struct NET{
-    int line_num;
-}NET;
+//新边表(NET)(为了方便活性边表的建立与更新)(用来存放多边形边的信息)
 
 typedef struct{
     int x,y;
@@ -36,7 +33,7 @@ typedef struct{
     Point p1,p2;
 }Edge;
 
-//多边形结构体(顶点表示)(points数组需要按顺序相连构成封闭图形(连接点放在最前和最后，计两个点))
+//多边形结构体(顶点表示)(points数组需要按顺序相连构成封闭图形(最后一个点要和第一个点连接))
 typedef struct{
     int point_num;
     const Point *points;
@@ -51,15 +48,35 @@ typedef struct{
 //将多边形从点表示法转换为边表示法
 Polygon_Edge convert_to_edge_representation(const Point *points, int point_num){
     Edge *edges = (Edge*)malloc(point_num*sizeof(Edge));
+    for(int i = 0;i < point_num - 1;i++){
+        edges[i].p1 = points[i];
+        edges[i].p2 = points[i + 1];
+    }
+    edges[point_num - 1].p1 = points[point_num - 1];
+    edges[point_num - 1].p2 = points[0];
+    Polygon_Edge polygon = {
+        .line_num = point_num,
+        .edges = edges,
+    };
+    return polygon;
 }
 
 //顶点表示法的多边形填充
 void polyfill(Polygon polygon,int Color){
-
+    int ymax = -1,ymin = 10000;
+    for(int i = 0;i < polygon.point_num;i++){
+        int temp = polygon.points[i].y;
+        if(temp < ymin) ymin = temp;
+        if(temp > ymax) ymax = temp;
+    }
+    //拿到了ymax和yminx才能建立新边表
+    AET *NET = (AET*)malloc((ymax - ymin + 1)*sizeof(AET));
+    Polygon_Edge polygon2 = convert_to_edge_representation(polygon.points,polygon.point_num);
 }
 
 //边表示法的多边形填充
 void polyfill(Polygon_Edge polygon,int Color){
+    // find_min_max(polygon.edges);
     //扫描多边形各条线，初始化新边表
     for(int i = 0;i < polygon.line_num;i++){
         //初始化新边表头指针NET[i]
@@ -77,10 +94,10 @@ void polyfill(Polygon_Edge polygon,int Color){
 int main(){
     initgraph(640,480);
     circle(200,200,100);
-    Point points[] = {{0,0},{1,1},{2,1},{0,0}};
+    Point points[] = {{0,0},{1,1},{2,1}};
     //C99结构体初始化语法
     Polygon polygon = {
-        .num = sizeof(points) / sizeof(Point),//计算顶点数量
+        .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
         .points = points,//设置顶点数组
     };
     _getch();
