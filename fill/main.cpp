@@ -63,15 +63,48 @@ Polygon_Edge convert_to_edge_representation(const Point *points, int point_num){
 
 //顶点表示法的多边形填充
 void polyfill(Polygon polygon,int Color){
+    //将多边形转换为边表示法
+    Polygon_Edge polygon_Edge = convert_to_edge_representation(polygon.points,polygon.point_num);
     int ymax = -1,ymin = 10000;
     for(int i = 0;i < polygon.point_num;i++){
         int temp = polygon.points[i].y;
         if(temp < ymin) ymin = temp;
         if(temp > ymax) ymax = temp;
     }
-    //拿到了ymax和yminx才能建立新边表
-    AET *NET = (AET*)malloc((ymax - ymin + 1)*sizeof(AET));
-    Polygon_Edge polygon2 = convert_to_edge_representation(polygon.points,polygon.point_num);
+    //拿到了ymax和yminx才能建立新边表NET
+    AET **NET;
+    for(int i = 0;i < ymax - ymin + 1;i++){
+        NET[i] = NULL;
+    }
+    //扫描多边形各条线，初始化新边表NET
+    for(int i = 0;i < polygon_Edge.line_num;i++){
+        const Edge* edge = &(polygon_Edge.edges[i]);
+        int yTop = fmax(edge->p1.y,edge->p2.y);
+        int yBottom = fmin(edge->p1.y,edge->p2.y);
+        if(yTop == yBottom) continue;//忽略水平边
+        float x = (yBottom == edge->p1.y)? edge->p1.x : edge->p2.x;//计算与yBottom相交的x值
+        float dx = (edge->p2.x - edge->p1.x)/(edge->p2.y - edge->p1.y); //计算增量
+        AET* node = new AET{yTop,x,dx,NULL};
+        int index = yBottom - ymin;
+        if(NET[index] == NULL){//如果该位置为空，直接插入
+            NET[index] = node;
+        }else{ //否则按照x值从小到大排序插入(对有序链表进行插入操作)
+            AET* curr = NET[index];
+            AET* prev = NULL;
+            while(curr != NULL && curr->x < x){
+                prev = curr;
+                curr = curr->next;
+            }
+            if(prev == NULL){
+                node->next = curr;
+                NET[index] = node;
+            } else {
+                prev->next = node;
+                node->next = curr;
+            }
+        }
+    }
+    
 }
 
 //边表示法的多边形填充
