@@ -17,7 +17,7 @@
 
 //活性边表(AET)(针对一条固定的扫描线来说)
 typedef struct AET{
-    float ymax;//与该边所交的的最高扫描线的Y值(从ymin到ymax依次扫描填充)
+    int ymax;//与该边所交的的最高扫描线的Y值(从ymin到ymax依次扫描填充)
     float x;//当前边与扫描线的交点的x值
     float dx;//边斜率的倒数 dx = 1/k(当前扫描线到下一条扫描线间x的增量)
     struct AET* next;
@@ -37,13 +37,58 @@ typedef struct{
 typedef struct{
     int point_num;
     const Point *points;
-}Polygon;
+}Polygon_Point;
 
 //多边形结构体(边表示)
 typedef struct{
     int line_num;
     const Edge *edges;
 }Polygon_Edge;
+
+//展示数据函数
+void displayPolygon(const Polygon_Point& polygon) {
+    std::cout << "Polygon with " << polygon.point_num << " points:\n";
+    for (int i = 0; i < polygon.point_num; i++) {
+        const Point& point = polygon.points[i];
+        std::cout << "(" << point.x << "," << point.y << ")";
+        if (i != polygon.point_num - 1) {
+            std::cout << " -> ";
+        } else {
+            std::cout << " -> (" << polygon.points[0].x << "," << polygon.points[0].y << ")";
+        }
+    }
+    std::cout << "\n";
+}
+
+//展示数据函数
+void displayAET(const AET* aet) {
+    std::cout << "Active Edge Table (AET):\n";
+    const AET* edge = aet;
+    while (edge != nullptr) {
+        std::cout << " ymax: " << edge->ymax
+                  << " x: " << edge->x
+                  << " dx: " << edge->dx
+                  << "\n";
+        edge = edge->next;
+    }
+}
+
+//展示数据函数
+void displayNET(const AET** net, int ymin, int ymax) {
+    std::cout << "New Edge Table (NET):\n";
+    for (int y = ymin; y <= ymax; y++) {
+        std::cout << " Scanline " << y << ": ";
+        const AET* edge = net[y - ymin];
+        while (edge != nullptr) {
+            std::cout << " ymax: " << edge->ymax
+                      << " x: " << edge->x
+                      << " dx: " << edge->dx
+                      << " ->";
+            edge = edge->next;
+        }
+        std::cout << " NULL\n";
+    }
+}
 
 //将多边形从点表示法转换为边表示法
 Polygon_Edge convert_to_edge_representation(const Point *points, int point_num){
@@ -62,7 +107,7 @@ Polygon_Edge convert_to_edge_representation(const Point *points, int point_num){
 }
 
 //顶点表示法的多边形填充
-void polyfill(Polygon polygon,int Color){
+void polyfill(Polygon_Point polygon,int Color){
     //将多边形转换为边表示法
     Polygon_Edge polygon_Edge = convert_to_edge_representation(polygon.points,polygon.point_num);
     int ymax = -1,ymin = 10000;
@@ -84,6 +129,7 @@ void polyfill(Polygon polygon,int Color){
         if(yTop == yBottom) continue;//忽略水平边
         float x = (yBottom == edge->p1.y)? edge->p1.x : edge->p2.x;//计算与yBottom相交的x值
         float dx = (edge->p2.x - edge->p1.x)/(edge->p2.y - edge->p1.y); //计算增量
+        std::cout<<"ymax = "<<yTop<<std::endl;
         AET* node = new AET{yTop,x,dx,NULL};
         int index = yBottom - ymin;
         if(NET[index] == NULL){//如果该位置为空，直接插入
@@ -104,6 +150,7 @@ void polyfill(Polygon polygon,int Color){
             }
         }
     }
+    displayNET(const_cast<const AET**>(NET), ymin, ymax);
     //扫描填充，增量更新
     for(int i = ymin;i <= ymax;i++){
         //初始化活性边表
@@ -114,6 +161,11 @@ void polyfill(Polygon polygon,int Color){
                 std::swap(active->x, active->next->x);
             }
             active = active->next;
+        }
+        for(AET* p = NET[i - ymin]; p != NULL && p->next != NULL; p = p->next){
+            int x_start = (int)p->x + 0.5f;
+            int x_end = (int)p->next->x + 0.5f;
+            line(x_start,i, x_end,i);
         }
         AET* curr = NET[i - ymin];
         AET* prev = NULL;
@@ -128,10 +180,13 @@ void polyfill(Polygon polygon,int Color){
                 continue;
             }
             prev = curr;
+            putpixel(curr->x,i,Color);
+            std::cout<<"x = "<<curr->x<<","<<"y = "<<i<<std::endl;
             curr->x += curr->dx;//更新dx值
             curr = curr->next;
         }
         //按x递增顺序重新排列
+        active = NET[i - ymin];
         while(active != NULL && active->next != NULL){
             if(active->x > active->next->x){
                 std::swap(active->x, active->next->x);
@@ -170,13 +225,15 @@ void polyfill(Polygon_Edge polygon,int Color){
 
 int main(){
     initgraph(640,480);
-    circle(200,200,100);
-    Point points[] = {{0,0},{1,1},{2,1}};
+    // circle(200,200,100);
+    Point points[] = {{100,100},{100,200},{200,150}};
     //C99结构体初始化语法
-    Polygon polygon = {
+    Polygon_Point polygon = {
         .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
         .points = points,//设置顶点数组
     };
+    displayPolygon(polygon);
+    polyfill(polygon,59999);
     _getch();
     closegraph();
     return 0;
