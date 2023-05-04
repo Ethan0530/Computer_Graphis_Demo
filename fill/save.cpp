@@ -158,28 +158,20 @@ void polyfill(Polygon_Point polygon,int Color){
     };
     //配对交点，扫描填色，增量更新
     for(int i = ymin;i <= ymax;i++){
-        AET *node = NET[i - ymin];
-        while(node != NULL){//对活性边表进行插入排序
-            if(header.next == NULL){
-                header.next = node;
-                break;
+        AET *node1 = NET[i - ymin];
+        AET *node2 = header.next;
+        AET *temp = &header;
+        while(node1 != NULL && node2 != NULL){//合并这两个有序链表
+            if(node1->x < node2->x){
+                temp->next = node1;
+                node1 = node1->next;
             }else{
-                AET *curr = header.next;
-                AET *prev = NULL;
-                while(curr != NULL && curr->x < node->x){
-                    prev = curr;
-                    curr = curr->next;
-                }
-                AET *temp = node->next;
-                if(prev == NULL){
-                    header.next = node;
-                }else{
-                    prev->next = node;
-                }
-                node = node->next;
+                temp->next = node2;
+                node2 = node2->next;
             }
+            temp = temp->next;
         }
-        
+        temp->next = (node1 != NULL) ? node1 : node2;
         
     }
 }
