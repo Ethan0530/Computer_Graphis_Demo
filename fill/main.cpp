@@ -153,6 +153,9 @@ void polyfill(Polygon_Point polygon,int Color){
     displayNET(const_cast<const AET**>(NET), ymin, ymax);
     //扫描填充，增量更新
     for(int i = ymin;i <= ymax;i++){
+        //辅助数组，用于保存与扫描线相交的X值
+        int arr[polygon_Edge.line_num];
+        int size = 0;
         //初始化活性边表
         AET* active = NET[i - ymin];
         //按x递增顺序排列
@@ -160,12 +163,23 @@ void polyfill(Polygon_Point polygon,int Color){
             if(active->x > active->next->x){
                 std::swap(active->x, active->next->x);
             }
+            size++;
             active = active->next;
         }
-        for(AET* p = NET[i - ymin]; p != NULL && p->next != NULL; p = p->next){
-            int x_start = (int)p->x + 0.5f;
-            int x_end = (int)p->next->x + 0.5f;
-            line(x_start,i, x_end,i);
+        active = NET[i - ymin];
+        while(active != NULL){
+            arr[size++] = active->x;
+            active = active->next;
+        }
+        std::cout<<size<<std::endl;
+        if(size > 1){
+            for(int j = 0;j < size;j+=2){
+                int k = j + 1;
+                while (j <= k){
+                    putpixel(j,i,Color);
+                    j++;
+                }
+            }
         }
         AET* curr = NET[i - ymin];
         AET* prev = NULL;
@@ -180,7 +194,7 @@ void polyfill(Polygon_Point polygon,int Color){
                 continue;
             }
             prev = curr;
-            putpixel(curr->x,i,Color);
+            // putpixel(curr->x,i,Color);
             std::cout<<"x = "<<curr->x<<","<<"y = "<<i<<std::endl;
             curr->x += curr->dx;//更新dx值
             curr = curr->next;
