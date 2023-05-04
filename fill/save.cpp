@@ -190,18 +190,19 @@ void polyfill(Polygon_Point polygon,int Color){
         temp = header.next;
         prev = &header;
         if(temp != NULL){
-            AET *_temp = temp->next;
-            while(_temp != NULL){
+            AET *list = temp->next;
+            temp->next = NULL;//先把链表断开,避免成环
+            while(list != NULL){
                 temp = header.next;
                 prev = &header;
-                while(temp != NULL && temp->x < _temp->x){
+                while(temp != NULL && temp->x < list->x){
                     prev = temp;
                     temp = temp->next;
                 }
-                AET *node = _temp;
-                prev->next = _temp;
-                _temp->next = temp;
-                _temp = node->next; 
+                AET *save = list->next;
+                prev->next = list;
+                list->next = temp;
+                list = save; 
             }
         }
         displayAET(header.next);
