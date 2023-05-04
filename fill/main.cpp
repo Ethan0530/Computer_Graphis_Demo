@@ -28,15 +28,15 @@ typedef struct NET{
     int line_num;
 }NET;
 
-//多边形每条边
-typedef struct{
-    int x1,y1,x2,y2;
-}Edge;
-
 //多边形每个顶点(必须是封闭图形)
 typedef struct{
     int x,y;
 }Point;
+
+//多边形每条边
+typedef struct{
+    int x1,y1,x2,y2;
+}Edge;
 
 //多边形结构体(顶点表示)
 typedef struct{
@@ -74,6 +74,12 @@ void polyfill(Polygon_Edge polygon,int Color){
 int main(){
     initgraph(640,480);
     circle(200,200,100);
+    Point points[] = {{0,0},{1,1},{2,1},{0,0}};
+    //C99结构体初始化语法
+    Polygon polygon = {
+        .num = sizeof(points) / sizeof(Point),
+        .points = points
+    };
     _getch();
     closegraph();
     return 0;
