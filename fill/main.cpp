@@ -12,11 +12,11 @@
  * d:区间填色
 */
 
+//活性边(针对一条固定的扫描线来说)
 typedef struct Edge{
-    float ymax;//扫描线所交边的最高Y值(从ymin到ymax依次扫描填充)
-    float ymin;//扫描线所交边的最低Y值
-    float x;//当前扫描线与边的交点的x值
-    float dx;//边斜率的倒数 dx = 1/k
+    float ymax;//与该边所交的的最高扫描线的Y值(从ymin到ymax依次扫描填充)
+    float x;//当前边与扫描线的交点的x值
+    float dx;//边斜率的倒数 dx = 1/k(当前扫描线到下一条扫描线间x的增量)
     struct Edge* next;
 }Edge;
 
