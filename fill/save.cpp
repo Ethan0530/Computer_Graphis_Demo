@@ -172,7 +172,27 @@ void polyfill(Polygon_Point polygon,int Color){
             temp = temp->next;
         }
         temp->next = (node1 != NULL) ? node1 : node2;
+
+        //删除ymax = i的结点,并把ymax > i的结点的x值进行增量更新
+        temp = header.next;
+        AET *prev = &header;
+        while(temp != NULL){
+            if(temp->ymax == i){
+                prev->next = temp->next;
+            }else{
+                temp->x += temp->dx;
+                prev = temp;
+            }
+            temp = temp->next;
+        }
         
+        //将活性边表重新排序
+        temp = header.next;
+        prev = &header;
+        while(temp != NULL){
+            
+        }
+        displayAET(header.next);
     }
 }
 
