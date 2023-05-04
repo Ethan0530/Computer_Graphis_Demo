@@ -189,8 +189,20 @@ void polyfill(Polygon_Point polygon,int Color){
         //将活性边表重新排序
         temp = header.next;
         prev = &header;
-        while(temp != NULL){
-            
+        if(temp != NULL){
+            AET *_temp = temp->next;
+            while(_temp != NULL){
+                temp = header.next;
+                prev = &header;
+                while(temp != NULL && temp->x < _temp->x){
+                    prev = temp;
+                    temp = temp->next;
+                }
+                AET *node = _temp;
+                prev->next = _temp;
+                _temp->next = temp;
+                _temp = node->next; 
+            }
         }
         displayAET(header.next);
     }
