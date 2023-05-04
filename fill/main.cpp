@@ -28,19 +28,17 @@ typedef struct NET{
     int line_num;
 }NET;
 
-//多边形每个顶点(必须是封闭图形)
 typedef struct{
     int x,y;
 }Point;
 
-//多边形每条边
 typedef struct{
-    int x1,y1,x2,y2;
+    Point p1,p2;
 }Edge;
 
-//多边形结构体(顶点表示)
+//多边形结构体(顶点表示)(points数组需要按顺序相连构成封闭图形(连接点放在最前和最后，计两个点))
 typedef struct{
-    int num;
+    int point_num;
     const Point *points;
 }Polygon;
 
@@ -49,6 +47,11 @@ typedef struct{
     int line_num;
     const Edge *edges;
 }Polygon_Edge;
+
+//将多边形从点表示法转换为边表示法
+Polygon_Edge convert_to_edge_representation(const Point *points, int point_num){
+    Edge *edges = (Edge*)malloc(point_num*sizeof(Edge));
+}
 
 //顶点表示法的多边形填充
 void polyfill(Polygon polygon,int Color){
@@ -77,8 +80,8 @@ int main(){
     Point points[] = {{0,0},{1,1},{2,1},{0,0}};
     //C99结构体初始化语法
     Polygon polygon = {
-        .num = sizeof(points) / sizeof(Point),
-        .points = points
+        .num = sizeof(points) / sizeof(Point),//计算顶点数量
+        .points = points,//设置顶点数组
     };
     _getch();
     closegraph();
