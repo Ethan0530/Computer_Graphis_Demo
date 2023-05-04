@@ -49,10 +49,6 @@ void Bezier(POINT *p,int n){
 	lineto(p[n].x,p[n].y);
 }
 
-function foo(){
-	
-}
-
 int main(){
 	initgraph(640,480);
 	circle(200,200,100);
