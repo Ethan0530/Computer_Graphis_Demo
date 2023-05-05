@@ -95,6 +95,16 @@ void displayNET(const AET** net, int ymin, int ymax) {
     }
 }
 
+//展示数据函数
+void displayList(List list){
+    Node* p = list->next;
+    while(p != NULL){
+        std::cout<<p->val<<" -> ";
+        p = p->next;
+    }
+    std::cout<<std::endl;
+}
+
 //将多边形从点表示法转换为边表示法
 Polygon_Edge convert_to_edge_representation(const Point *points, int point_num){
     Edge *edges = (Edge*)malloc(point_num*sizeof(Edge));
@@ -134,7 +144,7 @@ void polyfill(Polygon_Point polygon,int Color){
         int yBottom = fmin(edge->p1.y,edge->p2.y);
         if(yTop == yBottom) continue;//忽略水平边
         float x = (yBottom == edge->p1.y)? edge->p1.x : edge->p2.x;//计算与yBottom相交的x值
-        float dx = (edge->p2.x - edge->p1.x)/(edge->p2.y - edge->p1.y); //计算增量
+        float dx = (float)(edge->p2.x - edge->p1.x)/(float)(edge->p2.y - edge->p1.y); //计算增量
         AET* node = new AET{yTop,x,dx,NULL};
         int index = yBottom - ymin;
         if(NET[index] == NULL){//如果该位置为空，直接插入
@@ -155,6 +165,7 @@ void polyfill(Polygon_Point polygon,int Color){
             }
         }
     }
+    displayNET(const_cast<const AET**>(NET), ymin, ymax);
     //初始化活性边表，增加一个空的头结点
     AET header = {
         .ymax = -1,
@@ -183,11 +194,9 @@ void polyfill(Polygon_Point polygon,int Color){
         temp = header.next;
         List list = (List)malloc(sizeof(Node));
         Node* p = list;
-        // int count = 0;
         while(temp != NULL){
-            int sign = 1,count = 0;
+            int sign = 1,count = 0;//sign判断是否进行取舍端点,count统计另一端点y值在上方的数目
             for(int j = 0;j < polygon_Edge.line_num;j++){
-                // const Edge line = polygon_Edge.edges[j];
                 if(polygon_Edge.edges[j].p1.x == temp->x && polygon_Edge.edges[j].p1.y == i){
                     sign = 0;//需要进行取舍
                     if(polygon_Edge.edges[j].p2.y > i){
@@ -234,6 +243,7 @@ void polyfill(Polygon_Point polygon,int Color){
                 }
             }
         }
+        displayList(list);
         p = list->next;
         while(p != NULL && p->next != NULL){
             for(int n1 = p->val,n2 = p->next->val;n1 <= n2;n1++){
@@ -241,30 +251,6 @@ void polyfill(Polygon_Point polygon,int Color){
             }
             p = p->next->next;
         }
-        // int *arr = (int*)malloc(sizeof(int)*count);
-        // temp = header.next;
-        // count = 0;
-        // while(temp != NULL){
-        //     arr[count++] = temp->x;
-        //     temp = temp->next;
-        // }
-        // for(int i = 0;i < count;i++){
-        //     std::cout<<"arr"<<i<<"="<<arr[i]<<std::endl;
-        // }
-        // int num = 0;
-        // for(int j = 0;j < count;j++){
-        //     for(int k = 0;k < polygon.point_num;k++){
-        //         if(polygon.points[k].y == i && polygon.points[k].x == arr[j] ){
-
-        //         }
-        //     }
-        // }
-        
-        // if(count % 2 == 0){
-
-        // }else{
-
-        // }
 
         //删除ymax = i的结点,并把ymax > i的结点的x值进行增量更新
         temp = header.next;
@@ -304,11 +290,11 @@ void polyfill(Polygon_Point polygon,int Color){
 
 /**
  * 100,100
- * 100,200
- * 200,150
- * 100,100 -> 100,200
- * 100,200 -> 200,150
- * 200,150 -> 100,100
+ * 150,200
+ * 200,100
+ * 100,100 -> 150,200
+ * 150,200 -> 200,100
+ * 200,100 -> 100,100
  * 新边表
  * ymax x dx next
  * 100:150,100,, -> 200,100,, -> NULL
@@ -318,7 +304,7 @@ void polyfill(Polygon_Point polygon,int Color){
 int main(){
     initgraph(640,480);
     // circle(200,200,100);
-    Point points[] = {{100,100},{100,200},{200,150}};
+    Point points[] = {{100,200},{150,200},{200,250},{250,200},{200,150},{175,100}};
     //C99结构体初始化语法
     Polygon_Point polygon = {
         .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
