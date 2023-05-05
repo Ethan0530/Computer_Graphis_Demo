@@ -15,6 +15,11 @@
  * a:首先构造一个纵向链表，链表的长度为多边形所占有的最大扫描线数，链表的每一个结点称为一个吊桶，对应多边形覆盖的每一条扫描线
 */
 
+typedef struct Node{
+    int val;
+    Node* next;
+}Node,*List;
+
 //活性边表(AET)(针对一条固定的扫描线来说)
 typedef struct AET{
     int ymax;//与该边所交的的最高扫描线的Y值(从ymin到ymax依次扫描填充)
@@ -112,6 +117,7 @@ void polyfill(Polygon_Point polygon,int Color){
     Polygon_Edge polygon_Edge = convert_to_edge_representation(polygon.points,polygon.point_num);
     int ymax = -1,ymin = 10000;
     for(int i = 0;i < polygon.point_num;i++){
+        putpixel(polygon.points[i].x,polygon.points[i].y,Color);
         int temp = polygon.points[i].y;
         if(temp < ymin) ymin = temp;
         if(temp > ymax) ymax = temp;
@@ -172,6 +178,93 @@ void polyfill(Polygon_Point polygon,int Color){
             temp = temp->next;
         }
         temp->next = (node1 != NULL) ? node1 : node2;
+
+        //遍历AET表，配对交点区间
+        temp = header.next;
+        List list = (List)malloc(sizeof(Node));
+        Node* p = list;
+        // int count = 0;
+        while(temp != NULL){
+            int sign = 1,count = 0;
+            for(int j = 0;j < polygon_Edge.line_num;j++){
+                // const Edge line = polygon_Edge.edges[j];
+                if(polygon_Edge.edges[j].p1.x == temp->x && polygon_Edge.edges[j].p1.y == i){
+                    sign = 0;//需要进行取舍
+                    if(polygon_Edge.edges[j].p2.y > i){
+                        count++;
+                    }
+                }else if(polygon_Edge.edges[j].p2.x == temp->x && polygon_Edge.edges[j].p2.y == i){
+                    sign = 0;
+                    if(polygon_Edge.edges[j].p1.y > i){
+                        count++;
+                    }
+                }
+            }
+            if(sign == 1){
+                Node *s = (Node*)malloc(sizeof(Node));
+                s->val = temp->x;
+                s->next = NULL;
+                p->next = s;
+                p = p->next;
+                temp = temp->next;
+                continue;
+            }else{//取舍
+                if(count == 0){//全落在下方，舍
+                    temp = temp->next;
+                    continue;
+                }else if(count == 1){//一边一个，正常取
+                    Node *s = (Node*)malloc(sizeof(Node));
+                    s->val = temp->x;
+                    s->next = NULL;
+                    p->next = s;
+                    p = p->next;
+                    temp = temp->next;
+                    continue;
+                }else{//全在上方，取2个
+                    Node *s1 = (Node*)malloc(sizeof(Node));
+                    Node *s2 = (Node*)malloc(sizeof(Node));
+                    s1->val = temp->x;
+                    s2->val = temp->x;
+                    s1->next = s2;
+                    s2->next = NULL;
+                    p->next = s1;
+                    p = p->next->next;
+                    temp = temp->next;
+                    continue;
+                }
+            }
+        }
+        p = list->next;
+        while(p != NULL && p->next != NULL){
+            for(int n1 = p->val,n2 = p->next->val;n1 <= n2;n1++){
+                putpixel(n1,i,Color);
+            }
+            p = p->next->next;
+        }
+        // int *arr = (int*)malloc(sizeof(int)*count);
+        // temp = header.next;
+        // count = 0;
+        // while(temp != NULL){
+        //     arr[count++] = temp->x;
+        //     temp = temp->next;
+        // }
+        // for(int i = 0;i < count;i++){
+        //     std::cout<<"arr"<<i<<"="<<arr[i]<<std::endl;
+        // }
+        // int num = 0;
+        // for(int j = 0;j < count;j++){
+        //     for(int k = 0;k < polygon.point_num;k++){
+        //         if(polygon.points[k].y == i && polygon.points[k].x == arr[j] ){
+
+        //         }
+        //     }
+        // }
+        
+        // if(count % 2 == 0){
+
+        // }else{
+
+        // }
 
         //删除ymax = i的结点,并把ymax > i的结点的x值进行增量更新
         temp = header.next;
