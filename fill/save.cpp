@@ -165,7 +165,10 @@ void polyfill(Polygon_Point polygon,int Color){
             }
         }
     }
-    displayNET(const_cast<const AET**>(NET), ymin, ymax);
+
+    // //test
+    // displayNET(const_cast<const AET**>(NET), ymin, ymax);
+
     //初始化活性边表，增加一个空的头结点
     AET header = {
         .ymax = -1,
@@ -189,6 +192,24 @@ void polyfill(Polygon_Point polygon,int Color){
             temp = temp->next;
         }
         temp->next = (node1 != NULL) ? node1 : node2;
+
+        //删除ymax = i的结点
+        temp = header.next;
+        AET *prev = &header;
+        while(temp != NULL){
+            if(temp->ymax == i){
+                prev->next = temp->next;
+            }else{
+                prev = temp;
+            }
+            temp = temp->next;
+        }
+
+        // //test
+        // if(i >= 600){
+        //     std::cout<<"i = "<<i<<std::endl;
+        //     displayAET(header.next);
+        // }
 
         //遍历AET表，配对交点区间
         temp = header.next;
@@ -243,7 +264,11 @@ void polyfill(Polygon_Point polygon,int Color){
                 }
             }
         }
-        displayList(list);
+
+        // //test
+        // displayList(list);
+
+        //已配对好交点，下面填色
         p = list->next;
         while(p != NULL && p->next != NULL){
             for(int n1 = p->val,n2 = p->next->val;n1 <= n2;n1++){
@@ -252,16 +277,11 @@ void polyfill(Polygon_Point polygon,int Color){
             p = p->next->next;
         }
 
-        //删除ymax = i的结点,并把ymax > i的结点的x值进行增量更新
+        //把ymax > i的结点的x值进行增量更新
         temp = header.next;
-        AET *prev = &header;
-        while(temp != NULL){
-            if(temp->ymax == i){
-                prev->next = temp->next;
-            }else{
-                temp->x += temp->dx;
-                prev = temp;
-            }
+        // prev = &header;
+        while(temp != NULL){     
+            temp->x += temp->dx; 
             temp = temp->next;
         }
         
@@ -284,7 +304,8 @@ void polyfill(Polygon_Point polygon,int Color){
                 list = save; 
             }
         }
-        displayAET(header.next);
+        // //test
+        // displayAET(header.next);
     }
 }
 
@@ -302,16 +323,16 @@ void polyfill(Polygon_Point polygon,int Color){
 */
 
 int main(){
-    initgraph(640,480);
+    initgraph(1380,1080);
     // circle(200,200,100);
-    Point points[] = {{100,200},{150,200},{200,250},{250,200},{200,150},{175,100}};
+    Point points[] = {{200,200},{500,100},{900,300},{1100,300},{1100,800},{700,600},{500,700},{400,600},{200,650}};
     //C99结构体初始化语法
     Polygon_Point polygon = {
         .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
         .points = points,//设置顶点数组
     };
     displayPolygon(polygon);
-    polyfill(polygon,59999);
+    polyfill(polygon,0xFF55FF);
     _getch();
     closegraph();
     return 0;
