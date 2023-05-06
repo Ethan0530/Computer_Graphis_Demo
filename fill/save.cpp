@@ -69,7 +69,7 @@ void displayPolygon(const Polygon_Point& polygon) {
 void displayAET(const AET* aet) {
     std::cout << "Active Edge Table (AET):\n";
     const AET* edge = aet;
-    while (edge != nullptr) {
+    while (edge != NULL) {
         std::cout << " ymax: " << edge->ymax
                   << " x: " << edge->x
                   << " dx: " << edge->dx
@@ -84,7 +84,7 @@ void displayNET(const AET** net, int ymin, int ymax) {
     for (int y = ymin; y <= ymax; y++) {
         std::cout << " Scanline " << y << ": ";
         const AET* edge = net[y - ymin];
-        while (edge != nullptr) {
+        while (edge != NULL) {
             std::cout << " ymax: " << edge->ymax
                       << " x: " << edge->x
                       << " dx: " << edge->dx
@@ -127,7 +127,7 @@ void polyfill(Polygon_Point polygon,int Color){
     Polygon_Edge polygon_Edge = convert_to_edge_representation(polygon.points,polygon.point_num);
     int ymax = -1,ymin = 10000;
     for(int i = 0;i < polygon.point_num;i++){
-        putpixel(polygon.points[i].x,polygon.points[i].y,Color);
+        // putpixel(polygon.points[i].x,polygon.points[i].y,Color);
         int temp = polygon.points[i].y;
         if(temp < ymin) ymin = temp;
         if(temp > ymax) ymax = temp;
@@ -167,7 +167,7 @@ void polyfill(Polygon_Point polygon,int Color){
     }
 
     // //test
-    // displayNET(const_cast<const AET**>(NET), ymin, ymax);
+    displayNET(const_cast<const AET**>(NET), ymin, ymax);
 
     //初始化活性边表，增加一个空的头结点
     AET header = {
@@ -323,16 +323,29 @@ void polyfill(Polygon_Point polygon,int Color){
 */
 
 int main(){
-    initgraph(1380,1080);
+    initgraph(640,480);
     // circle(200,200,100);
-    Point points[] = {{200,200},{500,100},{900,300},{1100,300},{1100,800},{700,600},{500,700},{400,600},{200,650}};
+    // Point points[] = {{200,200},{500,100},{900,300},{1100,300},{1100,800},{700,600},{500,700},{400,600},{200,650}};
+    //星星
+    // Point points1[] = {{88,173},{88,186},{94,186},{94,178},{109,178},{109,171},{124,171},{124,164},{133,164},{133,171},{148,171},{148,178},{163,178},{163,186},{169,186},{169,174},{161,174},{161,158},{154,158},{154,141},{161,141},{161,134},{169,134},{169,127},{176,127},{176,121},{146,121},{146,113},{139,113},{139,98},{131,98},{131,83},{126,83},{126,98},{118,98},{118,113},{110,113},{110,120},{80,120},{80,126},{88,126},{88,133},{95,133},{95,141},{102,141},{102,158},{95,158},{95,173}};
+    // Polygon_Point polygon1 = {
+    //     .point_num = sizeof(points1) / sizeof(Point),//计算顶点数量
+    //     .points = points1,//设置顶点数组
+    // };
+    // polyfill(polygon1,RED);
+
+    //三角形
+    Point points[] = {{200,200},{200,300},{250,250}};
+    polygon((POINT*)points,3);
+    // Point points[] = {{}};
     //C99结构体初始化语法
     Polygon_Point polygon = {
         .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
         .points = points,//设置顶点数组
     };
     displayPolygon(polygon);
-    polyfill(polygon,0xFF55FF);
+    // polly
+    // polyfill(polygon,0xFF55FF);
     _getch();
     closegraph();
     return 0;

@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "name": "windows-gcc-x64",
+      "includePath": [
+        "${workspaceFolder}/**"
+      ],
+      "compilerPath": "D:/devcpp/Dev-Cpp/MinGW64/bin/gcc.exe",
+      "cStandard": "${default}",
+      // "cppStandard": "${default}",
+      "cppStandard": "c++11",
+      "intelliSenseMode": "windows-gcc-x64",
+      "compilerArgs": [
+        ""
+      ]
+    }
+  ],
+  "version": 4
+}
