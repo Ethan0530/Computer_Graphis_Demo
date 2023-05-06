@@ -167,7 +167,7 @@ void polyfill(Polygon_Point polygon,int Color){
     }
 
     // //test
-    displayNET(const_cast<const AET**>(NET), ymin, ymax);
+    // displayNET(const_cast<const AET**>(NET), ymin, ymax);
 
     //初始化活性边表，增加一个空的头结点
     AET header = {
@@ -309,21 +309,125 @@ void polyfill(Polygon_Point polygon,int Color){
     }
 }
 
-/**
- * 100,100
- * 150,200
- * 200,100
- * 100,100 -> 150,200
- * 150,200 -> 200,100
- * 200,100 -> 100,100
- * 新边表
- * ymax x dx next
- * 100:150,100,, -> 200,100,, -> NULL
- * 150:200,100,, -> 200,150,, -> NULL
-*/
+void draw(){
+    Point points[] = {{364,1080},{378,1041},{431,1029},{426,1080}};
+    Polygon_Point polygon = {
+        .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
+        .points = points,//设置顶点数组
+    };
+    polyfill(polygon,RGB(48,67,45));
+    Point points2[] = {{663,1080},{725,1080},{711,1042},{658,1029}};
+    Polygon_Point polygon2 = {
+        .point_num = sizeof(points2) / sizeof(Point),//计算顶点数量
+        .points = points2,//设置顶点数组
+    };
+    polyfill(polygon2,RGB(48,67,45));
+    Point points3[] = {{430,1080},{436,1027},{545,1011},{653,1027},{660,1080}};
+    Polygon_Point polygon3 = {
+        .point_num = sizeof(points3) / sizeof(Point),//计算顶点数量
+        .points = points3,//设置顶点数组
+    };
+    polyfill(polygon3,RGB(255,251,242));
+
+    setcolor(RGB(99,85,74));
+    //裙边
+    line(426,1080,431,1028);
+    line(427,1080,432,1028);
+    line(428,1080,433,1028);
+    line(429,1080,434,1028);
+    line(662,1080,657,1028);
+    line(661,1080,656,1028);
+    line(660,1080,655,1028);
+    line(659,1080,654,1028);
+
+    //手臂
+    line(549,1000,787,1055);
+    line(549,999,787,1054);
+    line(549,998,787,1053);
+    line(549,997,787,1052);
+    line(549,996,787,1051);
+
+    line(549,1000,301,1055);
+    line(549,999,301,1054);
+    line(549,998,301,1053);
+    line(549,997,301,1052);
+    line(549,996,301,1051);
+
+    line(301,1055,258,1030);
+    line(301,1054,259,1030);
+    line(301,1053,260,1030);
+    line(301,1052,261,1030);
+    line(301,1051,262,1030);
+
+    line(258,1030,249,992);
+    line(259,1030,250,992);
+    line(260,1030,251,992);
+    line(261,1030,252,992);
+    line(262,1030,253,992);
+
+    line(249,992,248,970);
+    line(250,992,249,970);
+    line(251,992,250,970);
+    line(252,992,251,970);
+    line(253,992,252,970);
+
+    line(248,970,251,939);
+    line(249,970,252,939);
+    line(250,970,253,939);
+    line(251,970,254,939);
+    line(252,970,255,940);
+
+    //衣袖与手臂边缘
+    line(229,928,267,943);
+    line(229,927,267,942);
+    line(229,926,267,941);
+    line(228,925,267,940);
+    line(231,924,267,939);
+
+    line(267,943,283,943);
+    line(267,942,283,942);
+    line(267,941,283,941);
+    line(267,940,283,940);
+    line(267,939,283,939);
+
+    line(280,943,286,950);
+    line(281,943,286,949);
+    line(282,943,286,948);
+    line(283,943,286,947);
+    line(284,943,286,946);
+
+    line(286,950,295,950);
+    line(286,949,295,949);
+    line(286,948,295,948);
+    line(286,947,295,947);
+    line(286,946,295,946);
+
+    line(295,950,345,920);
+    line(295,949,345,919);
+    line(295,948,345,918);
+    line(295,947,345,917);
+    line(295,946,345,916);
+
+    line(345,920,354,920);
+    line(345,919,354,919);
+    line(345,918,354,918);
+    line(345,917,354,917);
+
+    line(354,920,363,927);
+    line(354,919,364,927);
+    line(354,918,365,927);
+    line(354,917,366,927);
+
+    line(346,935,549,889);
+    line(346,934,549,888);
+    line(346,933,549,887);
+    line(346,932,549,886);
+}
 
 int main(){
-    initgraph(640,480);
+    initgraph(1080,1080);
+    setbkcolor(RGB(255,239,206));
+    cleardevice();
     // circle(200,200,100);
     // Point points[] = {{200,200},{500,100},{900,300},{1100,300},{1100,800},{700,600},{500,700},{400,600},{200,650}};
     //星星
@@ -336,17 +440,28 @@ int main(){
 
     //三角形
     Point points[] = {{200,200},{200,300},{250,250}};
-    polygon((POINT*)points,3);
+    // polygon((POINT*)points,3);
+
     // Point points[] = {{}};
     //C99结构体初始化语法
     Polygon_Point polygon = {
         .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
         .points = points,//设置顶点数组
     };
-    displayPolygon(polygon);
-    // polly
+    // displayPolygon(polygon);
     // polyfill(polygon,0xFF55FF);
-    _getch();
+    // polyfill(polygon,RGB(250,212,223));
+
+    draw();
+
+
+    // _getch();
+
+    // 将绘制的图形保存为.jpg格式图像
+    IMAGE img;
+    getimage(&img, 0, 0, 1080, 1080);  // 获取整个屏幕区域的图像
+    saveimage("E:\\git_workplace\\Computer_Graphis_Demo\\test.jpg",&img);
+
     closegraph();
     return 0;
 }
