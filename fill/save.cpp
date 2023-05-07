@@ -1802,6 +1802,62 @@ void drawEye(){
     
 }
 
+void drawTie(){
+    Point points01[] = {{512,535},{505,541},{540,550},{575,541},{568,535},{540,540}};
+    Polygon_Point polygon01 = {
+        .point_num = sizeof(points01) / sizeof(Point),//计算顶点数量
+        .points = points01,//设置顶点数组
+    };
+    polyfill(polygon01,RGB(137,227,129));
+
+    Point points02[] = {{538,547},{544,551},{515,620},{492,598}};
+    Polygon_Point polygon02 = {
+        .point_num = sizeof(points02) / sizeof(Point),//计算顶点数量
+        .points = points02,//设置顶点数组
+    };
+    polyfill(polygon02,RGB(137,227,129));
+
+    Point points03[] = {{542,547},{536,551},{565,620},{588,598}};
+    Polygon_Point polygon03 = {
+        .point_num = sizeof(points03) / sizeof(Point),//计算顶点数量
+        .points = points03,//设置顶点数组
+    };
+    polyfill(polygon03,RGB(137,227,129));
+}
+
+void drawHand(){
+    setcolor(RGB(99,85,74));
+    line(546,997,565,990);
+    line(546,998,565,991);
+    line(546,999,565,992);
+    line(546,1000,565,993);
+
+    line(565,990,584,973);
+    line(565,991,584,974);
+    line(565,992,584,975);
+    line(565,993,584,976);
+
+    line(584,973,599,934);
+    line(584,974,600,934);
+    line(584,975,601,934);
+    line(584,976,602,934);
+
+    line(599,934,598,924);
+    line(600,934,599,924);
+    line(601,934,600,924);
+    line(602,934,601,924);
+
+    line(598,924,587,904);
+    line(599,924,588,904);
+    line(600,924,589,904);
+    line(601,924,590,904);
+
+    line(587,904,569,892);
+    line(588,904,570,892);
+    line(589,904,571,892);
+    line(590,904,572,892);
+}
+
 int main(){
     initgraph(1080,1080);
     setbkcolor(RGB(255,239,206));
@@ -1836,6 +1892,10 @@ int main(){
     drawHead_Right();
 
     drawEye();
+
+    drawTie();
+
+    drawHand();
 
     // _getch();
 
