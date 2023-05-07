@@ -1110,12 +1110,21 @@ void fillShirt_Left(){
     };
     polyfill(polygon02,RGB(239,239,239));
 
+    //绿色条带
     Point points03[] = {{421,797},{415,839},{440,913},{426,913},{404,867},{400,844},{400,808},{456,560},{474,566}};
     Polygon_Point polygon03 = {
         .point_num = sizeof(points03) / sizeof(Point),//计算顶点数量
         .points = points03,//设置顶点数组
     };
     polyfill(polygon03,RGB(179,217,176));
+
+    //衣领
+    Point points04[] = {{476,574},{448,538},{449,531},{486,483},{532,505}};
+    Polygon_Point polygon04 = {
+        .point_num = sizeof(points04) / sizeof(Point),//计算顶点数量
+        .points = points04,//设置顶点数组
+    };
+    polyfill(polygon04,RGB(239,239,239));
 }
 
 void fillShirt_Right(){
@@ -1133,12 +1142,21 @@ void fillShirt_Right(){
     };
     polyfill(polygon02,RGB(239,239,239));
 
+    //绿色条带
     Point points03[] = {{659, 797},{665, 839},{640, 913},{654, 913},{676, 867},{680, 844},{680, 808},{624, 560},{606, 566}};
     Polygon_Point polygon03 = {
         .point_num = sizeof(points03) / sizeof(Point),//计算顶点数量
         .points = points03,//设置顶点数组
     };
     polyfill(polygon03,RGB(179,217,176));
+
+    //衣领
+    Point points04[] = {{604, 574},{632, 538},{631, 531},{594, 483},{548, 505}};
+    Polygon_Point polygon04 = {
+        .point_num = sizeof(points04) / sizeof(Point),//计算顶点数量
+        .points = points04,//设置顶点数组
+    };
+    polyfill(polygon04,RGB(239,239,239));
 }
 
 void central_Decoration(){
