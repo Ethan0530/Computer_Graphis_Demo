@@ -309,7 +309,7 @@ void polyfill(Polygon_Point polygon,int Color){
     }
 }
 
-void draw(){
+void draw_Left(){
     setcolor(RGB(99,85,74));
     //裙边
     line(426,1080,431,1025);
@@ -592,9 +592,58 @@ void draw(){
         .points = points4,//设置顶点数组
     };
     polyfill(polygon4,RGB(136,227,134));
-    //
+    
+    //胸前绿色装饰带
+    setcolor(RGB(10,54,5));
+    line(454,555,399,796);
+    line(455,555,400,795);
+    line(456,555,401,795);
+    line(457,555,402,795);
 
+    line(399,796,396,818);
+    line(400,796,397,818);
+    line(401,796,398,818);
+    line(402,796,399,818);
 
+    line(396,818,396,839);
+    line(397,818,397,839);
+    line(398,818,398,839);
+    line(399,818,399,839);
+
+    line(396,839,401,870);
+    line(397,839,402,870);
+    line(398,839,403,870);
+    line(399,839,404,870);
+
+    line(401,870,424,914);
+    line(402,870,425,914);
+    line(403,870,426,914);
+    line(404,870,427,914);
+
+    line(471,573,420,796);
+    line(472,573,421,796);
+    line(473,573,422,796);
+    line(474,573,423,796);
+
+    line(420,796,416,816);
+    line(421,796,417,816);
+    line(422,796,418,816);
+    line(423,796,419,816);
+
+    line(416,816,416,840);
+    line(417,816,417,840);
+    line(418,816,418,840);
+    line(419,816,419,840);
+
+    line(416,840,421,870);
+    line(417,840,422,870);
+    line(418,840,423,870);
+    line(419,840,424,870);
+
+    line(421,870,440,910);
+    line(422,870,441,910);
+    line(423,870,442,910);
+    line(424,870,443,910);
 }
 
 /**
@@ -603,7 +652,7 @@ void draw(){
  * x2 = 1080 - x1 
 */
 
-void draw2(){
+void draw_Right(){
     setcolor(RGB(99,85,74));
     //裙边
     line(654,1080,649,1025);
@@ -926,7 +975,6 @@ void fillShirtLace_Left(){
         .points = points05,//设置顶点数组
     };
     polyfill(polygon05,RGB(239,239,239));
-
 }
 
 void fillShirtLace_right(){
@@ -981,7 +1029,7 @@ void fillDress(){
 }
 
 
-void fillShirt(){
+void fillShirt_Left(){
     Point points01[] = {{}};
     Polygon_Point polygon01 = {
         .point_num = sizeof(points01) / sizeof(Point),//计算顶点数量
@@ -1022,8 +1070,9 @@ int main(){
     fillArm();
     fillShirtLace_Left();
     fillShirtLace_right();
-    draw();
-    draw2();
+    draw_Left();
+    draw_Right();
+
     // _getch();
 
     // 将绘制的图形保存为.jpg格式图像
