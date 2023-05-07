@@ -1688,7 +1688,12 @@ void drawFace(){
 }
 
 void fillHair(){
-
+    Point points01[] = {{422,533},{369,489},{338,451},{345,455},{365,517},{341,497},{340,510},{318,475},{303,435},{300,400}};
+    Polygon_Point polygon01 = {
+        .point_num = sizeof(points01) / sizeof(Point),//计算顶点数量
+        .points = points01,//设置顶点数组
+    };
+    polyfill(polygon01,RGB(182,149,130));
 }
 
 int main(){
