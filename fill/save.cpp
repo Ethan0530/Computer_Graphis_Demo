@@ -330,12 +330,7 @@ void draw(){
     line(549,997,301,1052);
     line(549,996,301,1051);
 
-    // line(301,1055,258,1030);
-    // line(301,1054,259,1030);
-    // line(301,1053,260,1030);
-    // line(301,1052,261,1030);
-    // line(301,1051,262,1030);
-
+    //竖直方向的多条手臂线段
     line(301,1055,294,1055);
     line(301,1054,294,1054);
     line(301,1053,294,1053);
@@ -353,7 +348,6 @@ void draw(){
     line(275,1046,260,1030);
     line(275,1045,261,1030);
     line(275,1044,262,1030);
-
 
     line(258,1030,249,992);
     line(259,1030,250,992);
@@ -441,10 +435,10 @@ void draw(){
     line(354,918,365,927);
     line(354,917,366,927);
 
-    line(346,935,549,889);
-    line(346,934,549,888);
-    line(346,933,549,887);
-    line(346,932,549,886);
+    line(346,935,540,889);
+    line(346,934,540,888);
+    line(346,933,540,887);
+    line(346,932,540,886);
 
     //上半部分衣袖
     line(323,834,316,834);
@@ -734,10 +728,10 @@ void draw2(){
     line(726,918,715,927);
     line(726,917,714,927);
 
-    line(734,935,531,889);
-    line(734,934,531,888);
-    line(734,933,531,887);
-    line(734,932,531,886);
+    line(734,935,540,889);
+    line(734,934,540,888);
+    line(734,933,540,887);
+    line(734,932,540,886);
 
     //上半部分衣袖
     line(757,834,764,834);
@@ -895,14 +889,16 @@ void draw2(){
     polyfill(polygon4,RGB(136,227,134));
 }
 
-void myFill(){
+void fillArm(){
     Point points01[] = {{255,941},{279,943},{287,950},{295,950},{346,919},{350,919},{362,927},{345,933},{347,935},{540,890},{742,935},{744,932},{727,927},{738,919},{744,919},{794,951},{802,950},{810,942},{834,940},{836,999},{824,1035},{803,1051},{789,1054},{540,996},{300,1056},{280,1048},{264,1031},{252,993}};
     Polygon_Point polygon01 = {
         .point_num = sizeof(points01) / sizeof(Point),//计算顶点数量
         .points = points01,//设置顶点数组
     };
     polyfill(polygon01,RGB(252,238,231));
+}
 
+void fillShirtLace_Left(){
     Point points02[] = {{231,909},{214,888},{251,824},{257,828}};
     Polygon_Point polygon02 = {
         .point_num = sizeof(points02) / sizeof(Point),//计算顶点数量
@@ -930,6 +926,37 @@ void myFill(){
         .points = points05,//设置顶点数组
     };
     polyfill(polygon05,RGB(239,239,239));
+
+}
+
+void fillShirtLace_right(){
+    Point points02[] = {{849,909},{866,888},{829,824},{823,828}};
+    Polygon_Point polygon02 = {
+        .point_num = sizeof(points02) / sizeof(Point),//计算顶点数量
+        .points = points02,//设置顶点数组
+    };
+    polyfill(polygon02,RGB(239,239,239));
+
+    Point points03[] = {{801,940},{815,939},{848,925},{841,891},{820,830},{799,841}};
+    Polygon_Point polygon03 = {
+        .point_num = sizeof(points03) / sizeof(Point),//计算顶点数量
+        .points = points03,//设置顶点数组
+    };
+    polyfill(polygon03,RGB(239,239,239));
+
+    Point points04[] = {{799,841},{799,846},{795,846},{794,842}};
+    Polygon_Point polygon04 = {
+        .point_num = sizeof(points04) / sizeof(Point),//计算顶点数量
+        .points = points04,//设置顶点数组
+    };
+    polyfill(polygon04,RGB(239,239,239));
+
+    Point points05[] = {{794,842},{793,943},{788,947},{733,916},{715,927},{711,926},{713,917},{739,891},{751,865},{755,848}};
+    Polygon_Point polygon05 = {
+        .point_num = sizeof(points05) / sizeof(Point),//计算顶点数量
+        .points = points05,//设置顶点数组
+    };
+    polyfill(polygon05,RGB(239,239,239));
 }
 
 void fillDress(){
@@ -951,6 +978,16 @@ void fillDress(){
         .points = points3,//设置顶点数组
     };
     polyfill(polygon3,RGB(255,251,242));
+}
+
+
+void fillShirt(){
+    Point points01[] = {{}};
+    Polygon_Point polygon01 = {
+        .point_num = sizeof(points01) / sizeof(Point),//计算顶点数量
+        .points = points01,//设置顶点数组
+    };
+    polyfill(polygon01,RGB(48,67,45));
 }
 
 int main(){
@@ -982,7 +1019,9 @@ int main(){
     // polyfill(polygon,RGB(250,212,223));
 
     fillDress();
-    myFill();
+    fillArm();
+    fillShirtLace_Left();
+    fillShirtLace_right();
     draw();
     draw2();
     // _getch();
