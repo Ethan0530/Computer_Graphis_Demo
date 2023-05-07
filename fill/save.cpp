@@ -1725,6 +1725,22 @@ void drawEye(){
         .points = points02,//设置顶点数组
     };
     polyfill(polygon02,RGB(1,1,1));
+
+    Point points03[] = {{608, 361},{591, 361},{587, 362},{587, 376},{589, 388},{595, 394},{602, 394},{606, 389},{608, 380}};
+    Polygon_Point polygon03 = {
+        .point_num = sizeof(points03) / sizeof(Point),//计算顶点数量
+        .points = points03,//设置顶点数组
+    };
+    polyfill(polygon03,RGB(133,199,128));
+
+    Point points04[] = {{608, 359}, {604, 360}, {592, 360}, {586, 361}, {587, 350}, {590, 346}, {594, 342}, {601, 343}, {603, 344}, {606, 351}, {608, 356}};
+    Polygon_Point polygon04 = {
+        .point_num = sizeof(points04) / sizeof(Point),//计算顶点数量
+        .points = points04,//设置顶点数组
+    };
+    polyfill(polygon04,RGB(1,1,1));
+
+    // line();
 }
 
 int main(){
