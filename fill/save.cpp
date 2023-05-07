@@ -1118,6 +1118,29 @@ void fillShirt_Left(){
     polyfill(polygon03,RGB(179,217,176));
 }
 
+void fillShirt_Right(){
+    Point points01[] = {{757, 830}, {764, 830}, {796, 815}, {816, 809}, {844, 784}, {856, 769}, {858, 760}, {858, 739}, {855, 728}, {853, 724}, {749, 577}, {733, 562}, {726, 559}, {715, 558}, {700, 562}, {640, 545}};
+    Polygon_Point polygon01 = {
+        .point_num = sizeof(points01) / sizeof(Point),//计算顶点数量
+        .points = points01,//设置顶点数组
+    };
+    polyfill(polygon01,RGB(239,239,239));
+
+    Point points02[] = {{640, 545}, {635, 540}, {630, 548}, {676, 778}, {682, 803}, {684, 845}, {681, 862}, {680, 868}, {657, 912}, {699, 923}, {716, 911}, {739, 884}, {749, 859}, {752, 843}, {753, 826}, {747, 794}, {733, 758}};
+    Polygon_Point polygon02 = {
+        .point_num = sizeof(points02) / sizeof(Point),//计算顶点数量
+        .points = points02,//设置顶点数组
+    };
+    polyfill(polygon02,RGB(239,239,239));
+
+    Point points03[] = {{659, 797},{665, 839},{640, 913},{654, 913},{676, 867},{680, 844},{680, 808},{624, 560},{606, 566}};
+    Polygon_Point polygon03 = {
+        .point_num = sizeof(points03) / sizeof(Point),//计算顶点数量
+        .points = points03,//设置顶点数组
+    };
+    polyfill(polygon03,RGB(179,217,176));
+}
+
 void central_Decoration(){
     Point points01[] = {{664,840},{654,780},{604,578},{546,508},{540,538},{534,508},{476,578},{426,780},{416,840},{443,913},{540,890},{637,913}};
     Polygon_Point polygon01 = {
@@ -1131,32 +1154,21 @@ int main(){
     initgraph(1080,1080);
     setbkcolor(RGB(255,239,206));
     cleardevice();
-    // circle(200,200,100);
-    // Point points[] = {{200,200},{500,100},{900,300},{1100,300},{1100,800},{700,600},{500,700},{400,600},{200,650}};
-    //星星
-    // Point points1[] = {{88,173},{88,186},{94,186},{94,178},{109,178},{109,171},{124,171},{124,164},{133,164},{133,171},{148,171},{148,178},{163,178},{163,186},{169,186},{169,174},{161,174},{161,158},{154,158},{154,141},{161,141},{161,134},{169,134},{169,127},{176,127},{176,121},{146,121},{146,113},{139,113},{139,98},{131,98},{131,83},{126,83},{126,98},{118,98},{118,113},{110,113},{110,120},{80,120},{80,126},{88,126},{88,133},{95,133},{95,141},{102,141},{102,158},{95,158},{95,173}};
-    // Polygon_Point polygon1 = {
-    //     .point_num = sizeof(points1) / sizeof(Point),//计算顶点数量
-    //     .points = points1,//设置顶点数组
-    // };
-    // polyfill(polygon1,RED);
-
-    //三角形
-    Point points[] = {{200,200},{200,300},{250,250}};
-    // polygon((POINT*)points,3);
 
     // Point points[] = {{}};
     //C99结构体初始化语法
-    Polygon_Point polygon = {
-        .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
-        .points = points,//设置顶点数组
-    };
+    // Polygon_Point polygon = {
+    //     .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
+    //     .points = points,//设置顶点数组
+    // };
+    
     // displayPolygon(polygon);
     // polyfill(polygon,0xFF55FF);
     // polyfill(polygon,RGB(250,212,223));
 
     central_Decoration();
     fillShirt_Left();
+    fillShirt_Right();
     fillDress();
     fillArm();
     fillShirtLace_Left();
