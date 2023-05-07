@@ -1710,6 +1710,23 @@ void fillHair(){
     polyfill(polygon03,RGB(67,62,59));
 }
 
+
+void drawEye(){
+    Point points01[] = {{472,361},{489,361},{493,362},{493,376},{491,388},{485,394},{478,394},{474,389},{472,380}};
+    Polygon_Point polygon01 = {
+        .point_num = sizeof(points01) / sizeof(Point),//计算顶点数量
+        .points = points01,//设置顶点数组
+    };
+    polyfill(polygon01,RGB(133,199,128));
+
+    Point points02[] = {{472,359},{476,360},{488,360},{494,361},{493,350},{490,346},{486,342},{479,343},{477,344},{474,351},{472,356}};
+    Polygon_Point polygon02 = {
+        .point_num = sizeof(points02) / sizeof(Point),//计算顶点数量
+        .points = points02,//设置顶点数组
+    };
+    polyfill(polygon02,RGB(1,1,1));
+}
+
 int main(){
     initgraph(1080,1080);
     setbkcolor(RGB(255,239,206));
@@ -1742,6 +1759,8 @@ int main(){
     fillHair();
     drawHead_Left();
     drawHead_Right();
+
+    drawEye();
 
     // _getch();
 
