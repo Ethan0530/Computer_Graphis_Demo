@@ -1119,7 +1119,7 @@ void fillShirt_Left(){
 }
 
 void central_Decoration(){
-    Point points01[] = {{443,913},{540,890},{637,913}};
+    Point points01[] = {{664,840},{654,780},{604,578},{546,508},{540,538},{534,508},{476,578},{426,780},{416,840},{443,913},{540,890},{637,913}};
     Polygon_Point polygon01 = {
         .point_num = sizeof(points01) / sizeof(Point),//计算顶点数量
         .points = points01,//设置顶点数组
@@ -1155,6 +1155,7 @@ int main(){
     // polyfill(polygon,0xFF55FF);
     // polyfill(polygon,RGB(250,212,223));
 
+    central_Decoration();
     fillShirt_Left();
     fillDress();
     fillArm();
