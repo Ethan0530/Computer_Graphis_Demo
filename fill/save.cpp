@@ -1662,6 +1662,23 @@ void drawHead_Right(){
     line(607,97,540,92);
 }   
 
+void drawNeck(){
+    Point points01[] = {{540,533},{535,503},{507,496},{507,467},{573,467},{573,496},{545,503}};
+    Polygon_Point polygon01 = {
+        .point_num = sizeof(points01) / sizeof(Point),//计算顶点数量
+        .points = points01,//设置顶点数组
+    };
+    polyfill(polygon01,RGB(225,205,194));
+}
+
+void drawFace(){
+Point points01[] = {{508,466},{474,462},{448,452},{420,434},{406,420},{395,402},{395,384},{414,404},{416,404},{421,345},{440,382},{443,382},{443,339},{479,213},{481,258},{496,312},{530,366},{540,369},{540,466}};
+    Polygon_Point polygon01 = {
+        .point_num = sizeof(points01) / sizeof(Point),//计算顶点数量
+        .points = points01,//设置顶点数组
+    };
+    polyfill(polygon01,RGB(252,239,231));
+}
 
 int main(){
     initgraph(1080,1080);
@@ -1686,9 +1703,12 @@ int main(){
     fillArm();
     fillShirtLace_Left();
     fillShirtLace_right();
+
+    drawNeck();
     draw_Left();
     draw_Right();
     
+    drawFace();
     drawHead_Left();
     drawHead_Right();
 
