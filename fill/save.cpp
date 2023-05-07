@@ -1109,6 +1109,22 @@ void fillShirt_Left(){
         .points = points02,//设置顶点数组
     };
     polyfill(polygon02,RGB(239,239,239));
+
+    Point points03[] = {{421,797},{415,839},{440,913},{426,913},{404,867},{400,844},{400,808},{456,560},{474,566}};
+    Polygon_Point polygon03 = {
+        .point_num = sizeof(points03) / sizeof(Point),//计算顶点数量
+        .points = points03,//设置顶点数组
+    };
+    polyfill(polygon03,RGB(179,217,176));
+}
+
+void central_Decoration(){
+    Point points01[] = {{443,913},{540,890},{637,913}};
+    Polygon_Point polygon01 = {
+        .point_num = sizeof(points01) / sizeof(Point),//计算顶点数量
+        .points = points01,//设置顶点数组
+    };
+    polyfill(polygon01,RGB(239,239,239));
 }
 
 int main(){
