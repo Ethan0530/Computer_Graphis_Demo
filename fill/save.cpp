@@ -310,35 +310,12 @@ void polyfill(Polygon_Point polygon,int Color){
 }
 
 void draw(){
-    Point points[] = {{364,1080},{378,1041},{431,1029},{426,1080}};
-    Polygon_Point polygon = {
-        .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
-        .points = points,//设置顶点数组
-    };
-    polyfill(polygon,RGB(48,67,45));
-    Point points2[] = {{663,1080},{725,1080},{711,1042},{658,1029}};
-    Polygon_Point polygon2 = {
-        .point_num = sizeof(points2) / sizeof(Point),//计算顶点数量
-        .points = points2,//设置顶点数组
-    };
-    polyfill(polygon2,RGB(48,67,45));
-    Point points3[] = {{430,1080},{436,1027},{545,1011},{653,1027},{660,1080}};
-    Polygon_Point polygon3 = {
-        .point_num = sizeof(points3) / sizeof(Point),//计算顶点数量
-        .points = points3,//设置顶点数组
-    };
-    polyfill(polygon3,RGB(255,251,242));
-
     setcolor(RGB(99,85,74));
     //裙边
-    line(426,1080,431,1028);
-    line(427,1080,432,1028);
-    line(428,1080,433,1028);
-    line(429,1080,434,1028);
-    line(662,1080,657,1028);
-    line(661,1080,656,1028);
-    line(660,1080,655,1028);
-    line(659,1080,654,1028);
+    line(426,1080,431,1025);
+    line(427,1080,432,1025);
+    line(428,1080,433,1025);
+    line(429,1080,434,1025);
 
     //手臂
     line(549,1000,787,1055);
@@ -353,11 +330,30 @@ void draw(){
     line(549,997,301,1052);
     line(549,996,301,1051);
 
-    line(301,1055,258,1030);
-    line(301,1054,259,1030);
-    line(301,1053,260,1030);
-    line(301,1052,261,1030);
-    line(301,1051,262,1030);
+    // line(301,1055,258,1030);
+    // line(301,1054,259,1030);
+    // line(301,1053,260,1030);
+    // line(301,1052,261,1030);
+    // line(301,1051,262,1030);
+
+    line(301,1055,294,1055);
+    line(301,1054,294,1054);
+    line(301,1053,294,1053);
+    line(301,1052,294,1052);
+    line(301,1051,294,1051);
+
+    line(294,1055,275,1048);
+    line(294,1054,275,1047);
+    line(294,1053,275,1046);
+    line(294,1052,275,1045);
+    line(294,1051,275,1044);
+
+    line(275,1048,258,1030);
+    line(275,1047,259,1030);
+    line(275,1046,260,1030);
+    line(275,1045,261,1030);
+    line(275,1044,262,1030);
+
 
     line(258,1030,249,992);
     line(259,1030,250,992);
@@ -616,14 +612,10 @@ void draw(){
 void draw2(){
     setcolor(RGB(99,85,74));
     //裙边
-    line(654,1080,649,1028);
-    line(653,1080,648,1028);
-    line(652,1080,647,1028);
-    line(651,1080,646,1028);
-    line(418,1080,423,1028);
-    line(419,1080,424,1028);
-    line(420,1080,425,1028);
-    line(421,1080,426,1028);
+    line(654,1080,649,1025);
+    line(653,1080,648,1025);
+    line(652,1080,647,1025);
+    line(651,1080,646,1025);
 
     //手臂
     line(531,1000,293,1055);
@@ -638,11 +630,23 @@ void draw2(){
     line(531,997,779,1052);
     line(531,996,779,1051);
 
-    line(779,1055,822,1030);
-    line(779,1054,821,1030);
-    line(779,1053,820,1030);
-    line(779,1052,819,1030);
-    line(779,1051,818,1030);
+    line(779,1055,786,1055);
+    line(779,1054,786,1054);
+    line(779,1053,786,1053);
+    line(779,1052,786,1052);
+    line(779,1051,786,1051);
+
+    line(786,1055,805,1048);
+    line(786,1054,805,1047);
+    line(786,1053,805,1046);
+    line(786,1052,805,1045);
+    line(786,1051,805,1044);
+
+    line(805,1048,822,1030);
+    line(805,1047,821,1030);
+    line(805,1046,820,1030);
+    line(805,1045,819,1030);
+    line(805,1044,818,1030);
 
     line(822,1030,831,992);
     line(821,1030,830,992);
@@ -891,6 +895,64 @@ void draw2(){
     polyfill(polygon4,RGB(136,227,134));
 }
 
+void myFill(){
+    Point points01[] = {{255,941},{279,943},{287,950},{295,950},{346,919},{350,919},{362,927},{345,933},{347,935},{540,890},{742,935},{744,932},{727,927},{738,919},{744,919},{794,951},{802,950},{810,942},{834,940},{836,999},{824,1035},{803,1051},{789,1054},{540,996},{300,1056},{280,1048},{264,1031},{252,993}};
+    Polygon_Point polygon01 = {
+        .point_num = sizeof(points01) / sizeof(Point),//计算顶点数量
+        .points = points01,//设置顶点数组
+    };
+    polyfill(polygon01,RGB(252,238,231));
+
+    Point points02[] = {{231,909},{214,888},{251,824},{257,828}};
+    Polygon_Point polygon02 = {
+        .point_num = sizeof(points02) / sizeof(Point),//计算顶点数量
+        .points = points02,//设置顶点数组
+    };
+    polyfill(polygon02,RGB(239,239,239));
+
+    Point points03[] = {{279,940},{265,939},{232,925},{239,891},{260,830},{281,841}};
+    Polygon_Point polygon03 = {
+        .point_num = sizeof(points03) / sizeof(Point),//计算顶点数量
+        .points = points03,//设置顶点数组
+    };
+    polyfill(polygon03,RGB(239,239,239));
+
+    Point points04[] = {{281,841},{281,846},{285,846},{286,842}};
+    Polygon_Point polygon04 = {
+        .point_num = sizeof(points04) / sizeof(Point),//计算顶点数量
+        .points = points04,//设置顶点数组
+    };
+    polyfill(polygon04,RGB(239,239,239));
+
+    Point points05[] = {{286,842},{283,943},{292,947},{347,916},{365,927},{369,926},{367,917},{341,891},{329,865},{325,848}};
+    Polygon_Point polygon05 = {
+        .point_num = sizeof(points05) / sizeof(Point),//计算顶点数量
+        .points = points05,//设置顶点数组
+    };
+    polyfill(polygon05,RGB(239,239,239));
+}
+
+void fillDress(){
+    Point points[] = {{364,1080},{378,1038},{431,1026},{426,1080}};
+    Polygon_Point polygon = {
+        .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
+        .points = points,//设置顶点数组
+    };
+    polyfill(polygon,RGB(48,67,45));
+    Point points2[] = {{716,1080},{702,1038},{649,1026},{654,1080}};
+    Polygon_Point polygon2 = {
+        .point_num = sizeof(points2) / sizeof(Point),//计算顶点数量
+        .points = points2,//设置顶点数组
+    };
+    polyfill(polygon2,RGB(48,67,45));
+    Point points3[] = {{430,1080},{436,1027},{540,1004},{644,1027},{650,1080}};
+    Polygon_Point polygon3 = {
+        .point_num = sizeof(points3) / sizeof(Point),//计算顶点数量
+        .points = points3,//设置顶点数组
+    };
+    polyfill(polygon3,RGB(255,251,242));
+}
+
 int main(){
     initgraph(1080,1080);
     setbkcolor(RGB(255,239,206));
@@ -919,9 +981,10 @@ int main(){
     // polyfill(polygon,0xFF55FF);
     // polyfill(polygon,RGB(250,212,223));
 
+    fillDress();
+    myFill();
     draw();
     draw2();
-
     // _getch();
 
     // 将绘制的图形保存为.jpg格式图像
