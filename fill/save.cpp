@@ -1858,6 +1858,16 @@ void drawHand(){
     line(590,904,572,892);
 }
 
+void drawButton(){
+    setcolor(RGB(3,61,2));        //圆的线条为黄色
+	setfillcolor(RGB(137,227,129));      //圆的填充为蓝色
+    // fillcircle(540, 580, 6);//圆心为（100，100），半径为20
+
+    for(int i = 600;i < 880; i += 50){
+        fillcircle(540, i , 6);
+    }
+}
+
 int main(){
     initgraph(1080,1080);
     setbkcolor(RGB(255,239,206));
@@ -1896,6 +1906,8 @@ int main(){
     drawTie();
 
     drawHand();
+
+    drawButton();
 
     // _getch();
 
