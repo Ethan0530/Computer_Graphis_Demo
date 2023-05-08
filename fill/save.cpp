@@ -1126,24 +1126,28 @@ void fillShirtLace_right(){
 }
 
 void fillDress(){
-    Point points[] = {{364,1080},{378,1038},{431,1026},{426,1080}};
+    Point points[] = {{364,1080},{377,1038},{540,1000},{703,1038},{716,1080}};
     Polygon_Point polygon = {
         .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
         .points = points,//设置顶点数组
     };
     polyfill(polygon,RGB(48,67,45));
-    Point points2[] = {{716,1080},{702,1038},{649,1026},{654,1080}};
-    Polygon_Point polygon2 = {
-        .point_num = sizeof(points2) / sizeof(Point),//计算顶点数量
-        .points = points2,//设置顶点数组
-    };
-    polyfill(polygon2,RGB(48,67,45));
-    Point points3[] = {{430,1080},{436,1027},{540,1004},{644,1027},{650,1080}};
-    Polygon_Point polygon3 = {
-        .point_num = sizeof(points3) / sizeof(Point),//计算顶点数量
-        .points = points3,//设置顶点数组
-    };
-    polyfill(polygon3,RGB(255,251,242));
+
+    setcolor(RGB(99,85,74));
+    line(540,1080,540,1010);
+    line(539,1080,539,1010);
+    line(541,1080,541,1010);
+    line(542,1080,542,1010);
+
+    line(364,1080,377,1038);
+    line(363,1080,376,1038);
+    line(362,1080,375,1038);
+    line(361,1080,374,1038);
+
+    line(716,1080,703,1038);
+    line(717,1080,704,1038);
+    line(718,1080,705,1038);
+    line(719,1080,706,1038);
 }
 
 
@@ -2034,7 +2038,6 @@ int main(){
     //     .point_num = sizeof(points) / sizeof(Point),//计算顶点数量
     //     .points = points,//设置顶点数组
     // };
-    
     // displayPolygon(polygon);
     // polyfill(polygon,0xFF55FF);
     // polyfill(polygon,RGB(250,212,223));
